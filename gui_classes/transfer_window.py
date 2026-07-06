@@ -85,6 +85,7 @@ class TransferWindow:
             value=payee_account["balance"] + int(self.amount.get())
         )
         self.user["balance"] = new_amount
+        payee_account["balance"] = payee_account["balance"] + int(self.amount.get())
 
         transid = generate_random_id.generate_transaction_id()
         TransactionAPI.add_transaction(

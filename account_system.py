@@ -7,6 +7,8 @@ from api_classes.account_api import AccountAPI
 import random
 import datacomp as dc
 import util.account_file_handler as afh
+import email_operations as eop
+
 
 # Sets up the initial firebase configurations
 firebaseConfig = {
@@ -171,6 +173,36 @@ class AccountSystem:
                 balance=float(opening_balance.get())
             )
 
+            file_path = f"Account Details\\account{accno}"
+
+            try:
+                with open(file_path, "rb") as myfile:
+                    file_name=myfile.name
+                    sender_email_id="pytrustbankltd619@gmail.com"
+                    recipient_email_id=email
+                    sender="PyTrust Bank Ltd."
+                    host_password="uykw rlxw gdiy kzhl"
+                    subject=subject
+                    subtype="txt"
+
+                eop.send_email(
+                    file_name=file_name,
+                    receiver_email=recipient_email_id,
+                    email=sender_email_id,
+                    sender=sender,
+                    subject=subject,
+                    data="<This is an automated message. Please do not reply directly to this email.>",
+                    subtype=subtype,
+                    host_password=host_password
+                )
+
+            except Exception as e:
+                print(f"Something went wrong... Error: {e}")
+                exit()
+
+            else:
+                print("Email sent successfully!")
+            
             AccountAPI.add_account(
                 account_id=accid, 
                 account_no=accno, 

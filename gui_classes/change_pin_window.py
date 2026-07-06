@@ -4,6 +4,7 @@ from PIL import Image
 import util.account_file_handler as afh
 import datacomp as dc
 from api_classes.account_api import AccountAPI
+import email_operations as eop
 
 
 class ChangePINWindow:
@@ -85,6 +86,36 @@ class ChangePINWindow:
             name=self.user["name"],
             pin=self.user["PIN"]
         )
+
+        file_path = f"PIN Confirmations\\account{self.user["account_no"]}"
+
+        try:
+            with open(file_path, "rb") as myfile:
+                file_name=myfile.name
+                sender_email_id="pytrustbankltd619@gmail.com"
+                recipient_email_id=self.user["email"]
+                sender="PyTrust Bank Ltd."
+                host_password="uykw rlxw gdiy kzhl"
+                subject=subject
+                subtype="txt"
+
+            eop.send_email(
+                file_name=file_name,
+                receiver_email=recipient_email_id,
+                email=sender_email_id,
+                sender=sender,
+                subject=subject,
+                data="<This is an automated message. Please do not reply directly to this email.>",
+                subtype=subtype,
+                host_password=host_password
+            )
+
+        except Exception as e:
+            print(f"Something went wrong... Error: {e}")
+            exit()
+
+        else:
+            print("Email sent successfully!")
 
 
     def close_change_pin_window(self):
