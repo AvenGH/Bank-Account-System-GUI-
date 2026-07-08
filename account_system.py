@@ -173,13 +173,14 @@ class AccountSystem:
                 balance=float(opening_balance.get())
             )
 
-            file_path = f"Account Details\\account{accno}"
+            file_path = f"Account Details\\account{accno}.txt"
+            subject = "Account Creation Successful"
 
             try:
                 with open(file_path, "rb") as myfile:
                     file_name=myfile.name
                     sender_email_id="pytrustbankltd619@gmail.com"
-                    recipient_email_id=email
+                    recipient_email_id=email.get()
                     sender="PyTrust Bank Ltd."
                     host_password="uykw rlxw gdiy kzhl"
                     subject=subject

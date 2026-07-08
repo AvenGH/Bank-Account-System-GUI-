@@ -87,7 +87,8 @@ class ChangePINWindow:
             pin=self.user["PIN"]
         )
 
-        file_path = f"PIN Confirmations\\account{self.user["account_no"]}"
+        file_path = f"PIN Confirmations\\account{self.user["account_no"]}.txt"
+        subject = "PIN Modification Successful"
 
         try:
             with open(file_path, "rb") as myfile:
